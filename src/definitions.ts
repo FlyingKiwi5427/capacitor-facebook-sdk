@@ -21,6 +21,7 @@ export interface FacebookCurrentAccessTokenResponse {
 
 export interface FacebookLoginPlugin {
   initialize(options: Partial<FacebookConfiguration>): Promise<void>;
+  logEvent(options: { eventName: string}): Promise<void>;
   login(options: { permissions: string[] }): Promise<FacebookLoginResponse>;
   logout(): Promise<void>;
   reauthorize(): Promise<FacebookLoginResponse>;

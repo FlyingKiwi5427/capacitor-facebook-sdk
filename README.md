@@ -266,6 +266,7 @@ console.log(`Facebook user's email is ${result.email}`);
 <docgen-index>
 
 * [`initialize(...)`](#initialize)
+* [`logEvent(...)`](#logevent)
 * [`login(...)`](#login)
 * [`logout()`](#logout)
 * [`reauthorize()`](#reauthorize)
@@ -288,6 +289,19 @@ initialize(options: Partial<FacebookConfiguration>) => Promise<void>
 | Param         | Type                                                                                                          |
 | ------------- | ------------------------------------------------------------------------------------------------------------- |
 | **`options`** | <code><a href="#partial">Partial</a>&lt;<a href="#facebookconfiguration">FacebookConfiguration</a>&gt;</code> |
+
+--------------------
+
+
+### logEvent(...)
+
+```typescript
+logEvent(options: { eventName: string; }) => Promise<void>
+```
+
+| Param         | Type                                |
+| ------------- | ----------------------------------- |
+| **`options`** | <code>{ eventName: string; }</code> |
 
 --------------------
 

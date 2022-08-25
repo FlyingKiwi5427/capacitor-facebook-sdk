@@ -1,5 +1,7 @@
 import Foundation
 import Capacitor
+import AppTrackingTransparency
+import FBSDKCoreKit
 import FBSDKLoginKit
 
 /**
@@ -17,7 +19,6 @@ public class FacebookLogin: CAPPlugin {
         } else {
             dateFormatter.formatOptions = [.withInternetDateTime]
         }
-
     }
 
     private func dateToJS(_ date: Date) -> String {
@@ -25,9 +26,36 @@ public class FacebookLogin: CAPPlugin {
     }
 
     @objc func initialize(_ call: CAPPluginCall) {
+        if #available(iOS 14, *) {
+            ATTrackingManager.requestTrackingAuthorization { (status) in
+                switch status {
+                case .authorized:
+                    Settings.shared.isAdvertiserTrackingEnabled = true
+                    break
+                default:
+                    Settings.shared.isAdvertiserTrackingEnabled = false
+                    break;
+                }
+            }
+        } else {
+            // Fallback on earlier versions
+        }
+        
+
         call.resolve()
     }
-
+    
+    @objc func logEvent(_ call: CAPPluginCall) {
+        print(call.options.keys)
+        guard let event = call.getString("eventName") else {
+            call.reject("Missing eventName argument")
+            return
+        }
+        print("logEvent " + event + " to facebook");
+        AppEvents.shared.logEvent(AppEvents.Name(event))
+        call.resolve()
+    }
+    
     @objc func login(_ call: CAPPluginCall) {
         guard let permissions = call.getArray("permissions", String.self) else {
             call.reject("Missing permissions argument")

@@ -1,5 +1,6 @@
 import { WebPlugin } from '@capacitor/core';
-import {
+
+import type {
   FacebookLoginPlugin,
   FacebookLoginResponse,
   FacebookCurrentAccessTokenResponse,
@@ -42,7 +43,7 @@ declare interface Facebook {
   ): void;
 }
 
-declare var FB: Facebook;
+declare let FB: Facebook;
 
 declare global {
   interface Window {
@@ -94,6 +95,10 @@ export class FacebookLoginWeb extends WebPlugin implements FacebookLoginPlugin {
       script.src = `https://connect.facebook.net/${locale ?? 'en_US'}/sdk.js`;
       head.appendChild(script);
     });
+  }
+
+  async logEvent(options: {eventName:string}):Promise<void> {
+    console.log(`${options}`)
   }
 
   async login(options: {
