@@ -1,7 +1,7 @@
 {
-  "name": "@capacitor-community/facebook-login",
-  "version": "4.0.0",
-  "description": "A native plugin for Facebook Login",
+  "name": "@flyingkiwi/facebook-login",
+  "version": "1.0.0",
+  "description": "A native plugin for Facebook Login + Events",
   "main": "dist/plugin.cjs.js",
   "module": "dist/esm/index.js",
   "types": "dist/esm/index.d.ts",
@@ -13,14 +13,20 @@
     "ios/Plugin/",
     "CapacitorCommunityFacebookLogin.podspec"
   ],
-  "author": "Masahiko Sakakibara <sakakibara@rdlabo.jp>",
+  "author": {
+    "name": "Flying Kiwi",
+    "email": "marijn@flyingkiwi.nl"
+  },
   "license": "MIT",
+  "publishConfig": {
+    "registry": "https://npm.flyingkiwi.dev"
+  },
   "repository": {
     "type": "git",
-    "url": "git@github.com:capacitor-community/facebook-login.git"
+    "url": "https://github.com/FlyingKiwi5427/capacitor-facebook-sdk"
   },
   "bugs": {
-    "url": "git@github.com:capacitor-community/facebook-login.git/issues"
+    "url": "https://github.com/FlyingKiwi5427/capacitor-facebook-sdk/issues"
   },
   "scripts": {
     "verify": "npm run verify:ios && npm run verify:android && npm run verify:web",
@@ -37,7 +43,9 @@
     "clean": "rimraf ./dist",
     "watch": "tsc --watch",
     "prepublishOnly": "npm run build",
-    "release": "np --no-tests"
+    "release": "np --no-tests",
+    "version": "npm run build && git add -A dist",
+    "postversion": "git push"
   },
   "devDependencies": {
     "@capacitor/android": "^4.0.0",
